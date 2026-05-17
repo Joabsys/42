@@ -1,0 +1,12 @@
+Cenário Treze - Falta de Interesse
+Você precisa de pontos de avaliação e abre muitos slots seguidos. Depois de fazer algumas avaliações se sente cansado e começa a não dar tanta atenção ao processo. Como
+prosseguir?
+A) Continua fazendo as avaliações, mesmo que não esteja dando o seu melhor, afinal você
+precisa dos pontos.
+B) Faz as avaliações, porém pede que sejam rápidas, pois está cansado.
+C) Faz as avaliações, porém somente roda testes automatizados e não verifica o código
+entregue.
+D) Caso você já saiba que não é possível fazer as avaliações em outro momento, seja por
+indisponibilidade das pessoas avaliadas ou por não saber quem elas são, melhor desmarcar do que fazer uma avaliação ruim somente para cumprir tabela.
+
+R = D

@@ -1,0 +1,433 @@
+Excelente pergunta.
+A parte mais importante do `make` é justamente entender como ele “descobre” os arquivos usando as regras e os símbolos especiais.
+
+Vamos desmontar isso passo a passo.
+
+---
+
+# O ponto principal
+
+Os símbolos especiais:
+
+```make
+$@
+$<
+```
+
+NÃO procuram arquivos sozinhos.
+
+Eles apenas representam informações que o `make` já descobriu ao interpretar a regra atual.
+
+---
+
+# Veja esta regra:
+
+```make
+$(SRCDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+```
+
+Depois da expansão de variável:
+
+```make
+srcs/%.o: srcs/%.c
+```
+
+---
+
+# O que `%` significa
+
+O `%` é um curinga (pattern).
+
+Ele representa:
+
+```text
+qualquer nome
+```
+
+---
+
+# Exemplo real
+
+Suponha que o make precise criar:
+
+```text
+srcs/ft_strlen.o
+```
+
+Então ele olha a regra:
+
+```make
+srcs/%.o: srcs/%.c
+```
+
+e tenta encaixar.
+
+---
+
+# O encaixe
+
+Ele pensa assim:
+
+```text
+srcs/%.o
+```
+
+precisa virar:
+
+```text
+srcs/ft_strlen.o
+```
+
+Então:
+
+```text
+% = ft_strlen
+```
+
+---
+
+# Agora o make substitui o `%`
+
+Na dependência:
+
+```make
+srcs/%.c
+```
+
+vira:
+
+```text
+srcs/ft_strlen.c
+```
+
+---
+
+# Então o make conclui:
+
+```text
+Para criar:
+srcs/ft_strlen.o
+
+eu preciso de:
+srcs/ft_strlen.c
+```
+
+---
+
+# AGORA entram os símbolos especiais
+
+Dentro desta execução específica da regra:
+
+```make
+$(CC) $(CFLAGS) -c $< -o $@
+```
+
+o make já sabe:
+
+---
+
+## alvo atual
+
+```text
+srcs/ft_strlen.o
+```
+
+Então:
+
+```make
+$@
+```
+
+vira:
+
+```text
+srcs/ft_strlen.o
+```
+
+---
+
+## primeira dependência
+
+```text
+srcs/ft_strlen.c
+```
+
+Então:
+
+```make
+$<
+```
+
+vira:
+
+```text
+srcs/ft_strlen.c
+```
+
+---
+
+# Resultado final da linha
+
+O make executa:
+
+```bash
+cc -Wall -Wextra -Werror -I includes \
+-c srcs/ft_strlen.c \
+-o srcs/ft_strlen.o
+```
+
+---
+
+# IMPORTANTE
+
+Os símbolos especiais NÃO fazem busca.
+
+Eles apenas recebem valores do contexto da regra atual.
+
+---
+
+# O make trabalha assim
+
+## PASSO 1
+
+Descobre o alvo necessário.
+
+Exemplo:
+
+```text
+srcs/ft_strlen.o
+```
+
+---
+
+## PASSO 2
+
+Procura uma regra compatível.
+
+Encontra:
+
+```make
+srcs/%.o: srcs/%.c
+```
+
+---
+
+## PASSO 3
+
+Resolve o `%`
+
+```text
+% = ft_strlen
+```
+
+---
+
+## PASSO 4
+
+Expande dependências
+
+```text
+srcs/ft_strlen.c
+```
+
+---
+
+## PASSO 5
+
+Define símbolos automáticos
+
+| símbolo | valor                |
+| ------- | -------------------- |
+| `$@`    | alvo                 |
+| `$<`    | primeira dependência |
+
+---
+
+# Outro exemplo completo
+
+---
+
+# Temos:
+
+```make
+OBJS = srcs/ft_putchar.o srcs/ft_strlen.o
+```
+
+---
+
+# O make quer criar:
+
+```text
+srcs/ft_putchar.o
+```
+
+---
+
+# Ele usa:
+
+```make
+srcs/%.o: srcs/%.c
+```
+
+---
+
+# Substituição:
+
+```text
+% = ft_putchar
+```
+
+---
+
+# Então:
+
+| expressão  | vira                |
+| ---------- | ------------------- |
+| `srcs/%.o` | `srcs/ft_putchar.o` |
+| `srcs/%.c` | `srcs/ft_putchar.c` |
+
+---
+
+# Agora os automáticos
+
+| símbolo | valor               |
+| ------- | ------------------- |
+| `$@`    | `srcs/ft_putchar.o` |
+| `$<`    | `srcs/ft_putchar.c` |
+
+---
+
+# Linha final executada
+
+```bash
+cc -Wall -Wextra -Werror -I includes \
+-c srcs/ft_putchar.c \
+-o srcs/ft_putchar.o
+```
+
+---
+
+# COMO o make sabe onde os arquivos estão?
+
+Porque VOCÊ ensinou isso aqui:
+
+```make
+srcs/%.o: srcs/%.c
+```
+
+Você literalmente definiu:
+
+```text
+objetos estão em srcs/
+sources estão em srcs/
+```
+
+---
+
+# Se fosse diferente
+
+Você poderia escrever:
+
+```make
+obj/%.o: src/%.c
+```
+
+Aí o make procuraria:
+
+```text
+obj/arquivo.o
+src/arquivo.c
+```
+
+---
+
+# Analogia mental
+
+Pense assim:
+
+---
+
+# A regra é um molde
+
+```make
+srcs/%.o: srcs/%.c
+```
+
+---
+
+# O `%` é um espaço vazio
+
+```text
+srcs/[NOME].o
+srcs/[NOME].c
+```
+
+---
+
+# O make preenche o espaço
+
+Exemplo:
+
+```text
+[NOME] = ft_strlen
+```
+
+---
+
+# E os símbolos especiais?
+
+Eles apenas pegam os valores já preenchidos.
+
+---
+
+# Resumo definitivo
+
+---
+
+# `%`
+
+Representa uma parte variável do nome.
+
+---
+
+# `$@`
+
+Representa o alvo atual.
+
+---
+
+# `$<`
+
+Representa a primeira dependência.
+
+---
+
+# O make sabe os caminhos porque:
+
+A regra define explicitamente:
+
+```make
+srcs/%.o: srcs/%.c
+```
+
+---
+
+# O fluxo real é:
+
+```text
+OBJS
+ ↓
+srcs/ft_strlen.o
+ ↓
+pattern rule
+ ↓
+% = ft_strlen
+ ↓
+srcs/ft_strlen.c
+ ↓
+$@ e $< recebem valores
+ ↓
+compilação
+```
+

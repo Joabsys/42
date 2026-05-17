@@ -1,0 +1,1 @@
+Daria um tempo para a pessoa responder pois pode ter ocorrido algo que a fez se atrasar e também lhe enviaria uma mensagem para saber se esta tudo bem. Se ela não respondesse a mensagem, mas chegasse atrasada para a avaliação, perguntaria se deseja continuar a avaliação ou se deseja remarcar.

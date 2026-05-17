@@ -1,0 +1,19 @@
+Cenário Cinco - Trapaça?
+A Pessoa A esta avaliando a Pessoa B num projeto. Elas estão analisando o código e a
+Pessoa B tem dificuldade em responder algumas das questões que a Pessoa A esta perguntando. Mas insiste que não é porque esta trapaceando. A Pessoa A está sentindo
+uma suspeita e decide marcar a Pessoa B como trapaceira o que faz com que a avaliação
+vire uma discussão que resulta em ambas as pessoas deixando a avaliação insatisfeitas.
+Considere como cada pessoa poderia ter lidado com a situação de forma com que não
+tivesse virado um conflito.
+Se a Pessoa B não trapaceou como ela poderia ter se explicado com calma?
+E como a Pessoa A poderia ter usado a empatia e a comunicação para entender a situação
+da Pessoa B, ela estava nervosa? Era a primeira avaliação dela?
+Se a Pessoa B trapaceou, como ambas poderiam ter lidado com a marcação de trapaça
+de forma calma e compreensiva.
+
+R= Sendo  pessoa A neste cenario ao iniciar a avaliação faria um breve quebra gelo para entender como a pessoa B esta naquele momento e também entendendo como a pessoa B melhor se expressa diante de avaliações para direcionar de modo que ela se sinta mais confortavel.
+Durante a avaliação faria perguntas e ao ver que a pessoa esta com dificuldade de falar sobre o codigo em si verificar qual caminho ela usou para escrever, perguntar sobre as dificuldades que ela teve e tentar auxiliar ou sanar duvidas caso eu tenha o conhecimento sobre aquilo.
+
+Sendo a pessoa B eu iniciaria a avaliação comunicando como costumo me sentir durante as avaliações como ansiedade, nervosismo e qualquer outra coisa que possa atrapalhar minha dissertação durante a avaliação, salientando meu processo de construção do codigo, pesquisa e estudo bem como dificuldades para deixar claro que o processo foi construido e não houve trapaça.
+
+Por ultimo para o cenario de uma real trapaça tomaria as providencias de acordo com as regras da 42.

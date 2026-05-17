@@ -1,0 +1,9 @@
+Cenário Seis - Por Que Em Pares?
+A avaliação entre pares é fundamental no processo pedagógico da 42. Resumidamente,
+qual é o principal objetivo da avaliação entre pares?
+A) Garantir que o projeto entregue segue os padrões de qualidade da 42.
+B) Economizar. Como cadetes se avaliam, não é necessário contratar professores.
+C) Compartilhar conhecimento, aprender e ensinar algo durante a avaliação.
+D) Demonstrar habilidade com o terminal e executar testes automatizados.
+
+R = C

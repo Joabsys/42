@@ -1,0 +1,158 @@
+O typedef em C cria um "apelido" (sinônimo) para tipos de dados existentes
+
+struct em um arquivo .h (cabeçalho) em C é a melhor prática para organizar seus dados e compartilhá-los entre vários arquivos de código-fonte .c.
+
+ serve para criar um apelido (um novo nome) para uma estrutura de dados personalizada, facilitando a escrita e a leitura do código
+
+O operador seta (->) em C é usado exclusivamente para acessar membros (variáveis ou funções) de uma estrutura (struct) ou união (union) por meio de um ponteiro. 
+
+As diretivas #ifndef (if not defined) e #endif (end if) na linguagem C funcionam juntas como parte do pré-processador para compilação condicional e, mais comumente, como Header Guards (guardas de cabeçalho).Para que servem (Funções Principais)Header Guards (Guardas de Cabeçalho): Evitam que o conteúdo de um arquivo de cabeçalho (.h) seja incluído múltiplas vezes no mesmo arquivo de origem (.c), o que causaria erros de redefinição de variáveis, classes ou funções.Compilação Condicional: Permitem incluir ou excluir partes do código baseadas na existência de uma macro, sendo úteis para depuração (debug) ou para compilar códigos diferentes para plataformas específicas
+
+\# Nome da biblioteca
+NAME = \libft.a
+
+# Compilador e Flags
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
+AR = ar rcs
+
+# Arquivos fonte
+SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+       ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c \
+       ft_strlcpy.c ft_strlcat.c ft_toupper.c ft_tolower.c ft_strchr.c \
+       ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c \
+       ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c \
+       ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
+       ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
+
+# Arquivos objeto
+OBJS = $(SRCS:.c=.o)
+
+# Regra padrão
+all: $(NAME)
+
+# Cria a biblioteca
+$(NAME): $(OBJS)
+	$(AR) $(NAME) $(OBJS)
+
+# Compila os arquivos .c em .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+ser
+# Limpa os arquivos objeto
+clean:
+	$(RM) $(OBJS)
+
+# Limpa objeto e a biblioteca
+fclean: clean
+	$(RM) $(NAME)
+
+# Reinicia a compilação
+re: fclean all
+
+.PHONY: all clean fclean re
+
+ft_range erro inical era porque não estava tratando quando o min era maior que max;
+find . -type f \( -name "#*" -o -name "*~" \) -delete
+Detalhes do comando:.: Procura no diretório atual e subdiretórios (mude para /caminho/pasta se necessário).
+-type f: Garante que apenas arquivos sejam apagados, ignorando diretórios.
+\( \): Agrupa os critérios de busca (parênteses escapados).
+-name "#*": Arquivos que começam com #.-o: Operador lógico "OU" (or).-name "*~": Arquivos que terminam com ~.
+-print imprime os arquivos encontrados
+-delete: Remove os arquivos encontrados
+
+o terminal, utilize o comando ln -s /caminho/do/arquivo /caminho/do/atalho para criar links simbólicos
+comandos git 
+git add
+git commit -m
+git push
+ 
+comandos touch
+touch -t corrgir data do arquivo
+
+chmod comandos par alterar
+ver pasta de downloads
+
+comandos ls
+ ls -l ver as permissao e data do arquivo.
+
+renomear arquivo terminal mv nome do arquivo atual e nome arquivo
+ criar sua propria chave ssh
+ ssh-keygen -t  rsa -b 4096
+ ssh-keygen -T output_file 
+ -b bits
+Specifies the number of bits in the key to create. For RSA keys,
+
+truncate -s  aumenta ou diminui o tamanho do arquivo
+
+id grupos de usuario
+-G (groups): Exibe todos os IDs dos grupos (primário e suplementares).
+-n (name): Exibe o nome em vez do número
+criar variavel de ambiente
+export FT_USER=bocal
+id -Gn $FT_USER | tr ' ' ','
+o $ neste exemplo é para determinar o que vem depopis dele é uma variavel de ambiente
+void ft_putnbr(int nb)
+ {
+	long nblong;
+
+	nblong = nb;
+	if (nblong < 0)
+	{
+		ft_putchar('-');
+		nblong = -nblong;
+	}
+	if (nblong >= 10)
+	{
+		ft_putnbr(nblong / 10);
+	}
+	ft_putchar(nblong % 10 + '0');
+ }
+ oid print_validacao(x,y)
+	{
+		char linha;
+
+		char coluna;
+
+		coluna = x + '0';
+		linha = y + '0';
+		while(linha <= 0 +'0' || coluna <= 0 + '0' || linha > 210 +'0' || coluna > 21 +'0') 	
+		{
+		write(1,"valores digitados invalidos veirifque!",38);
+		break;
+		
+
+comando find explicado
+🔎 find .
+
+Procura a partir do diretório atual (.).
+
+📄 -type f
+
+Filtra apenas arquivos comuns (ignora diretórios, links, etc.).
+
+🏷️ -name "*.sh"
+
+Procura arquivos que terminam com:
+
+.sh
+
+Exemplo:
+
+script.sh
+teste.sh
+⚙️ -exec ... \;
+
+Executa um comando para cada arquivo encontrado.
+
+O \; significa:
+👉 “fim do comando executado pelo -exec”
+
+📌 basename {} .sh
+
+Aqui está o ponto principal:
+
+{} → representa cada arquivo encontrado pelo find
+basename → remove o caminho e/ou sufixo do nome do arquivo
+.sh → remove a extensão .sh

@@ -1,0 +1,10 @@
+Cenário Um - Avaliadora Não Responde.
+Você marcou uma avaliação para seu projeto mas a avaliadora não apareceu no horário
+marcado. Como você reagiria? Você daria algum tempo para a pessoa responder ou
+imediatamente marcaria como ausente?
+
+R= Tentaria contato com a avaliadora para entender o que ocorreu para saber se é um atraso ou indisponibilidade e caso seja uma indisponibilidade o motivo da mesma.
+Caso o contato seja positivo e se trate de um atraso, havendo disponibilidade da minha parte eu aguardo a avaliadora para realizar a avaliação em sua chegada.
+para o caso de indisponibilidade, avaliaria o motivo informado para tal e a possibilidade de um reagendamento.
+Se não for possivel o contato e ou reagendamento ai sim
+marcaria como ausente.

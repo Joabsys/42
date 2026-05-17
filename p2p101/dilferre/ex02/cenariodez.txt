@@ -1,0 +1,13 @@
+Cenário Dez - Norma e Norminette Não São A Mesma Coisa?
+Você esta em uma avaliação e a avaliadora encontrou uma variável em português no seu
+código. Avisou então que havia um erro de Norma e que infelizmente o seu projeto será
+zerado, porém continuou avaliando seu código. Você:
+A) Alega que a régua pede somente para que se rode a Norminette, ignorando totalmente o documento da Norma e, como o programa não acusou o erro, pede para não usar a flag
+de Norma.
+B) Recorre a outras pessoas para pedir uma opinião sobre o assunto.
+C) Fica irritado e pede para parar a avaliação naquele momento, e ainda marca a avaliadora como ausente antes que qualquer feedback seja escrito na intra.
+D) Pede para verificarem juntos o documento da Norma e identifica o item que explica
+sobre o idioma obrigatório das variávels. Aceita e decisão e corrige seu código para uma
+próxima entrega.
+
+R = D

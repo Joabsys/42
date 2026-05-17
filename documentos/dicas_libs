@@ -1,0 +1,932 @@
+Vantagens e DesvantagensVantagens: O executável é autônomo (não requer a instalação da biblioteca no sistema final) e a execução é ligeiramente mais rápida.Desvantagens: Gera um arquivo executável maior. Além disso, se a biblioteca for atualizada, você precisará recompilar todo o programa para aplicar as melhorias.Como criar e utilizar (no Linux)Para criar e consumir uma biblioteca estática usando o gcc e o gerenciador de arquivos ar, você pode seguir este processo passo a passo:1. Compilar os arquivos fonte em objetosPrimeiro, compile seus arquivos .c que contêm a lógica da biblioteca em arquivos de código objeto (.o), sem gerar um executável final.bashgcc -c minha_biblioteca.c -o minha_biblioteca.o
+
+2. Criar a biblioteca estática (.a)Empacote os arquivos .o gerados em um arquivo de arquivo morto (archive) com a extensão .a.bashar rcs libminhabib.a minha_biblioteca.o
+
+O prefixo lib é obrigatório e o nome final da biblioteca é o que vem antes do .a.3. Compilar o programa principal com a bibliotecaNa hora de compilar o seu programa, informe onde a biblioteca está para que o linker possa embutir o código dela no seu binário.bashgcc programa_principal.c -L. -lminhabib -o meu_programa
+O parâmetro -L. diz para procurar a biblioteca no diretório atual.O parâmetro -lminhabib indica o nome da biblioteca (sem o prefixo lib e sem a extensão .a).
+Vou explicar o Makefile inteiro em ordem, mostrando:
+
+* o que cada linha faz
+* o significado de cada símbolo
+* como as variáveis se relacionam
+* como o `make` executa tudo internamente
+
+---
+
+# VISÃO GERAL
+
+O objetivo desse Makefile é:
+
+1. compilar arquivos `.c`
+2. gerar arquivos `.o`
+3. juntar os `.o` numa biblioteca estática `libft.a`
+
+Fluxo geral:
+
+```text
+.c  ->  .o  ->  libft.a
+```
+
+---
+
+# 1. NOME DA BIBLIOTECA
+
+```make
+NAME = libft.a
+```
+
+## O que é isso
+
+Cria uma variável chamada `NAME`.
+
+## Valor armazenado
+
+```text
+libft.a
+```
+
+## Relação com o resto
+
+Essa variável é usada depois aqui:
+
+```make
+all: $(NAME)
+```
+
+e aqui:
+
+```make
+$(NAME): $(OBJS)
+```
+
+Então o nome real da biblioteca depende dessa variável.
+
+---
+
+# 2. COMPILADOR
+
+```make
+CC = cc
+```
+
+## O que significa
+
+`CC` é uma convenção usada para indicar o compilador C.
+
+## Valor
+
+```text
+cc
+```
+
+No Linux/macOS normalmente aponta para:
+
+* gcc
+* clang
+
+---
+
+# 3. FLAGS DO COMPILADOR
+
+```make
+CFLAGS = -Wall -Wextra -Werror -I includes
+```
+
+## O que são flags
+
+São opções passadas ao compilador.
+
+---
+
+## `-Wall`
+
+Ativa warnings importantes.
+
+Exemplo:
+
+* variável não usada
+* comparação estranha
+* retorno ausente
+
+---
+
+## `-Wextra`
+
+Ativa warnings adicionais.
+
+Mais rigoroso que `-Wall`.
+
+---
+
+## `-Werror`
+
+Transforma warnings em erros.
+
+Sem isso:
+
+```text
+warning: variable unused
+```
+
+Com isso:
+
+```text
+error: variable unused
+```
+
+Na 42 isso é obrigatório.
+
+---
+
+## `-I includes`
+
+Muito importante.
+
+### `-I`
+
+Significa:
+
+```text
+include path
+```
+
+Adiciona um diretório onde o compilador procura headers.
+
+---
+
+## Relação com:
+
+```c
+#include "libft.h"
+```
+
+Quando o compilador vê isso:
+
+```c
+#include "libft.h"
+```
+
+ele procura:
+
+1. pasta atual
+2. diretórios do `-I`
+
+Então:
+
+```make
+-I includes
+```
+
+faz ele procurar em:
+
+```text
+includes/libft.h
+```
+
+---
+
+# 4. COMANDO DO ARQUIVADOR
+
+```make
+AR = ar rcs
+```
+
+## `ar`
+
+Programa usado para criar bibliotecas estáticas `.a`
+
+---
+
+## `rcs`
+
+### `r`
+
+replace
+
+Substitui objetos antigos.
+
+---
+
+### `c`
+
+create
+
+Cria a biblioteca se não existir.
+
+---
+
+### `s`
+
+index
+
+Cria índice para linker.
+
+---
+
+## Relação com:
+
+```make
+$(AR) $(NAME) $(OBJS)
+```
+
+vira:
+
+```bash
+ar rcs libft.a arquivos.o
+```
+
+---
+
+# 5. COMANDO REMOVE
+
+```make
+RM = rm -f
+```
+
+## `rm`
+
+remove arquivos
+
+---
+
+## `-f`
+
+force
+
+Não reclama se arquivo não existir.
+
+---
+
+# 6. DIRETÓRIO DOS SOURCES
+
+```make
+SRCDIR = srcs
+```
+
+Define:
+
+```text
+srcs/
+```
+
+como pasta dos `.c`.
+
+---
+
+# 7. DIRETÓRIO DOS HEADERS
+
+```make
+INCDIR = includes
+```
+
+Define:
+
+```text
+includes/
+```
+
+---
+
+# 8. LISTA DOS SOURCES
+
+```make
+SRCS = ft_putchar.c \
+       ft_putstr.c \
+       ft_strcmp.c \
+       ft_strlen.c \
+       ft_swap.c
+```
+
+## O que é
+
+Lista de arquivos `.c`.
+
+---
+
+## `\`
+
+Continuação de linha.
+
+Sem isso o Make acharia que acabou.
+
+---
+
+## Importante
+
+Aqui temos SOMENTE nomes.
+
+Ainda NÃO tem `srcs/`.
+
+---
+
+# 9. CONSTRUÇÃO DOS CAMINHOS
+
+```make
+SRC = $(addprefix $(SRCDIR)/, $(SRCS))
+```
+
+Essa é uma das partes mais importantes.
+
+---
+
+# Primeiro: expansão das variáveis
+
+## `$(SRCDIR)`
+
+vira:
+
+```text
+srcs
+```
+
+---
+
+## `$(SRCS)`
+
+vira:
+
+```text
+ft_putchar.c ft_putstr.c ...
+```
+
+---
+
+# Agora o `addprefix`
+
+Sintaxe:
+
+```make
+$(addprefix PREFIXO, LISTA)
+```
+
+---
+
+## Aqui:
+
+```make
+$(addprefix srcs/, arquivos)
+```
+
+---
+
+## Resultado:
+
+```text
+srcs/ft_putchar.c
+srcs/ft_putstr.c
+srcs/ft_strcmp.c
+...
+```
+
+---
+
+# Resultado final de SRC
+
+```make
+SRC = srcs/ft_putchar.c \
+      srcs/ft_putstr.c \
+      ...
+```
+
+---
+
+# RELAÇÃO IMPORTANTE
+
+`SRCS`
+→ nomes simples
+
+`SRC`
+→ caminhos completos
+
+---
+
+# 10. OBJETOS
+
+```make
+OBJS = $(SRC:.c=.o)
+```
+
+Essa sintaxe é MUITO importante.
+
+---
+
+# O que ela faz
+
+Substitui:
+
+```text
+.c
+```
+
+por:
+
+```text
+.o
+```
+
+---
+
+# Exemplo
+
+```text
+srcs/ft_putchar.c
+```
+
+vira:
+
+```text
+srcs/ft_putchar.o
+```
+
+---
+
+# Resultado final
+
+```make
+OBJS = srcs/ft_putchar.o \
+       srcs/ft_putstr.o \
+       ...
+```
+
+---
+
+# RELAÇÃO ENTRE VARIÁVEIS
+
+```text
+SRCS  -> nomes dos .c
+SRC   -> caminhos completos dos .c
+OBJS  -> caminhos completos dos .o
+```
+
+---
+
+# 11. REGRA PADRÃO
+
+```make
+all: $(NAME)
+```
+
+---
+
+# O que é uma regra
+
+Sintaxe:
+
+```make
+alvo: dependências
+```
+
+---
+
+## Aqui:
+
+```make
+all: libft.a
+```
+
+---
+
+# Significa:
+
+Para executar `all`,
+o make precisa criar `libft.a`.
+
+---
+
+# Fluxo
+
+Quando você roda:
+
+```bash
+make
+```
+
+o make executa a PRIMEIRA regra.
+
+Aqui:
+
+* primeira regra = `all`
+
+Então ele tenta construir:
+
+```text
+libft.a
+```
+
+---
+
+# 12. REGRA DA BIBLIOTECA
+
+```make
+$(NAME): $(OBJS)
+```
+
+vira:
+
+```make
+libft.a: srcs/ft_putchar.o ...
+```
+
+---
+
+# Significado
+
+Para criar:
+
+```text
+libft.a
+```
+
+o make precisa dos:
+
+```text
+.o
+```
+
+---
+
+# RELAÇÃO
+
+```text
+all
+ ↓
+libft.a
+ ↓
+.o
+ ↓
+.c
+```
+
+---
+
+# COMANDO DA REGRA
+
+```make
+	$(AR) $(NAME) $(OBJS)
+```
+
+ATENÇÃO:
+isso começa com TAB.
+
+Makefile exige TAB.
+
+---
+
+# Expansão
+
+```make
+ar rcs libft.a srcs/ft_putchar.o ...
+```
+
+---
+
+# Resultado
+
+Cria:
+
+```text
+libft.a
+```
+
+---
+
+# 13. REGRA DE COMPILAÇÃO
+
+```make
+$(SRCDIR)/%.o: $(SRCDIR)/%.c
+```
+
+Essa é uma pattern rule.
+
+---
+
+# `%`
+
+Representa “qualquer nome”.
+
+---
+
+# Exemplo real
+
+```make
+srcs/ft_putchar.o: srcs/ft_putchar.c
+```
+
+---
+
+# Significado
+
+Para criar:
+
+```text
+arquivo.o
+```
+
+precisa do:
+
+```text
+arquivo.c
+```
+
+---
+
+# COMANDO
+
+```make
+$(CC) $(CFLAGS) -c $< -o $@
+```
+
+---
+
+# Expansão
+
+```bash
+cc -Wall -Wextra -Werror -I includes -c srcs/ft_putchar.c -o srcs/ft_putchar.o
+```
+
+---
+
+# Agora os símbolos especiais
+
+---
+
+## `$<`
+
+Primeira dependência.
+
+Aqui:
+
+```text
+srcs/ft_putchar.c
+```
+
+---
+
+## `$@`
+
+Nome do alvo.
+
+Aqui:
+
+```text
+srcs/ft_putchar.o
+```
+
+---
+
+# `-c`
+
+Compila sem linkar.
+
+Produz `.o`.
+
+---
+
+# `-o`
+
+Define nome do output.
+
+---
+
+# 14. CLEAN
+
+```make
+clean:
+```
+
+Regra sem dependências.
+
+---
+
+# COMANDO
+
+```make
+$(RM) $(OBJS)
+```
+
+vira:
+
+```bash
+rm -f srcs/*.o
+```
+
+(removendo explicitamente cada arquivo)
+
+---
+
+# Função
+
+Apaga objetos.
+
+---
+
+# 15. FCLEAN
+
+```make
+fclean: clean
+```
+
+---
+
+# Relação
+
+Antes de executar `fclean`,
+o make executa:
+
+```make
+clean
+```
+
+---
+
+# COMANDO
+
+```make
+$(RM) $(NAME)
+```
+
+vira:
+
+```bash
+rm -f libft.a
+```
+
+---
+
+# Resultado
+
+Remove:
+
+* `.o`
+* `.a`
+
+---
+
+# 16. RE
+
+```make
+re: fclean all
+```
+
+---
+
+# Relação
+
+Executa:
+
+```text
+fclean
+↓
+all
+```
+
+---
+
+# Equivale a:
+
+```bash
+make fclean
+make all
+```
+
+---
+
+# 17. PHONY
+
+```make
+.PHONY: all clean fclean re
+```
+
+Muito importante.
+
+---
+
+# Problema sem isso
+
+Se existir um arquivo chamado:
+
+```text
+clean
+```
+
+o make acha que o alvo já existe.
+
+Então:
+
+```bash
+make clean
+```
+
+não executaria.
+
+---
+
+# `.PHONY`
+
+Diz:
+
+```text
+esses alvos NÃO são arquivos reais
+```
+
+sempre execute.
+
+---
+
+# FLUXO COMPLETO DO MAKE
+
+Quando você roda:
+
+```bash
+make
+```
+
+---
+
+# ETAPA 1
+
+Executa:
+
+```make
+all
+```
+
+---
+
+# ETAPA 2
+
+`all` depende de:
+
+```text
+libft.a
+```
+
+---
+
+# ETAPA 3
+
+`libft.a` depende dos `.o`
+
+---
+
+# ETAPA 4
+
+Cada `.o` depende do `.c`
+
+---
+
+# ETAPA 5
+
+Compila:
+
+```text
+.c -> .o
+```
+
+---
+
+# ETAPA 6
+
+Junta:
+
+```text
+.o -> libft.a
+```
+
+---
+
+# RESULTADO FINAL
+
+Você terá:
+
+```text
+libft.a
+srcs/*.o
+```
+
+---
+
+# DIAGRAMA FINAL
+
+```text
+SRCS
+ ↓
+SRC
+ ↓
+OBJS
+ ↓
+$(NAME)
+ ↓
+all
+```
+
+Ou:
+
+```text
+.c
+ ↓
+.o
+ ↓
+libft.a
+```
+

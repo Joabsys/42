@@ -1,0 +1,807 @@
+O `Makefile` é um arquivo usado pelo comando `make` para automatizar compilação.
+Ele funciona baseado em **relações de dependência**:
+
+> “Para criar X, eu preciso de Y.”
+
+Cada linha foi escrita pensando na próxima etapa da construção da biblioteca `libft.a`.
+
+Vou explicar na ordem exata em que o `make` interpreta o arquivo e como cada parte depende da anterior.
+
+---
+
+# 1. Nome da biblioteca
+
+```makefile
+NAME = libft.a
+```
+
+## O que isso faz
+
+Cria uma variável chamada `NAME`.
+
+Ela guarda o nome final da biblioteca:
+
+```text
+libft.a
+```
+
+---
+
+## Relação com as próximas linhas
+
+Mais abaixo existe:
+
+```makefile
+all: $(NAME)
+```
+
+e também:
+
+```makefile
+$(NAME): $(OBJ)
+```
+
+Ou seja:
+
+* `NAME` define QUAL arquivo final será criado
+* as regras seguintes usam essa variável para saber:
+
+  * o que construir
+  * o que apagar no `fclean`
+
+Sem essa linha, o Makefile teria que repetir `"libft.a"` várias vezes.
+
+---
+
+# 2. Compilador
+
+```makefile
+CC = gcc
+```
+
+## O que isso faz
+
+Define qual compilador será usado.
+
+Aqui:
+
+```text
+gcc
+```
+
+---
+
+## Relação com a próxima etapa
+
+Mais abaixo:
+
+```makefile
+$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+```
+
+O `$(CC)` será substituído por:
+
+```bash
+gcc
+```
+
+Então o comando vira:
+
+```bash
+gcc -Wall -Wextra -Werror ...
+```
+
+---
+
+# 3. Flags de compilação
+
+```makefile
+CFLAGS = -Wall -Wextra -Werror
+```
+
+## O que isso faz
+
+Define opções passadas ao compilador.
+
+---
+
+## O significado de cada flag
+
+### `-Wall`
+
+Ativa vários warnings importantes.
+
+---
+
+### `-Wextra`
+
+Ativa warnings adicionais.
+
+---
+
+### `-Werror`
+
+Transforma warnings em erros.
+
+Isso é obrigatório na 42.
+
+---
+
+## Relação com a próxima linha
+
+Essa variável é usada aqui:
+
+```makefile
+$(CC) $(CFLAGS)
+```
+
+Então:
+
+```makefile
+$(CC) $(CFLAGS)
+```
+
+vira:
+
+```bash
+gcc -Wall -Wextra -Werror
+```
+
+---
+
+# 4. Programa para criar biblioteca
+
+```makefile
+AR = ar rcs
+```
+
+## O que isso faz
+
+Define o comando que cria bibliotecas estáticas (`.a`).
+
+---
+
+## Entendendo o comando
+
+### `ar`
+
+Archive utility.
+
+Usado para juntar `.o` dentro de uma biblioteca.
+
+---
+
+### `rcs`
+
+São opções:
+
+| opção | significado |
+| ----- | ----------- |
+| r     | replace     |
+| c     | create      |
+| s     | cria índice |
+
+---
+
+## Relação com as próximas linhas
+
+Mais abaixo:
+
+```makefile
+$(AR) $(NAME) $(OBJ)
+```
+
+vira:
+
+```bash
+ar rcs libft.a arquivos.o
+```
+
+---
+
+# 5. Diretório dos fontes
+
+```makefile
+SRC_DIR = srcs
+```
+
+## O que isso faz
+
+Define onde estão os `.c`.
+
+---
+
+## Relação com a próxima linha
+
+Logo abaixo:
+
+```makefile
+$(SRC_DIR)/ft_putchar.c
+```
+
+vira:
+
+```text
+srcs/ft_putchar.c
+```
+
+---
+
+# 6. Diretório dos headers
+
+```makefile
+INC_DIR = includes
+```
+
+## O que isso faz
+
+Define onde estão os `.h`.
+
+---
+
+## Relação com a regra de compilação
+
+Mais abaixo:
+
+```makefile
+-I $(INC_DIR)
+```
+
+vira:
+
+```bash
+-I includes
+```
+
+Isso diz ao compilador:
+
+> “procure headers dentro de `includes/`”
+
+---
+
+# 7. Lista de arquivos fonte
+
+```makefile
+SRC = \
+	$(SRC_DIR)/ft_putchar.c \
+	$(SRC_DIR)/ft_putstr.c \
+	$(SRC_DIR)/ft_strcmp.c \
+	$(SRC_DIR)/ft_strlen.c \
+	$(SRC_DIR)/ft_swap.c
+```
+
+# O QUE ESTÁ ACONTECENDO AQUI
+
+Essa variável monta a lista completa dos `.c`.
+
+---
+
+## Por que usar `\`
+
+O `\` significa:
+
+> “a linha continua”
+
+Então tudo vira:
+
+```makefile
+SRC = srcs/ft_putchar.c srcs/ft_putstr.c ...
+```
+
+---
+
+# RELAÇÃO COM AS PRÓXIMAS LINHAS
+
+Essa variável será usada para criar automaticamente os `.o`.
+
+---
+
+# 8. Transformação automática de `.c` para `.o`
+
+```makefile
+OBJ = $(SRC:.c=.o)
+```
+
+# ESTA É UMA DAS LINHAS MAIS IMPORTANTES
+
+---
+
+## O que ela faz
+
+Pega tudo que está em `SRC` e troca:
+
+```text
+.c -> .o
+```
+
+---
+
+## Exemplo real
+
+Antes:
+
+```text
+srcs/ft_putchar.c
+```
+
+Depois:
+
+```text
+srcs/ft_putchar.o
+```
+
+---
+
+# Resultado final da variável
+
+```makefile
+OBJ =
+srcs/ft_putchar.o
+srcs/ft_putstr.o
+srcs/ft_strcmp.o
+srcs/ft_strlen.o
+srcs/ft_swap.o
+```
+
+---
+
+# RELAÇÃO COM A PRÓXIMA ETAPA
+
+Mais abaixo:
+
+```makefile
+$(NAME): $(OBJ)
+```
+
+Isso significa:
+
+> “libft.a depende dos arquivos `.o`”
+
+---
+
+# 9. Regra principal
+
+```makefile
+all: $(NAME)
+```
+
+# ESTA É A REGRA PADRÃO
+
+Quando você digita:
+
+```bash
+make
+```
+
+o `make` executa a primeira regra encontrada.
+
+Aqui:
+
+```makefile
+all
+```
+
+---
+
+# O QUE SIGNIFICA
+
+```makefile
+all: $(NAME)
+```
+
+significa:
+
+> “para completar `all`, preciso primeiro construir `libft.a`”
+
+---
+
+# RELAÇÃO COM A PRÓXIMA LINHA
+
+Agora o `make` procura:
+
+```makefile
+$(NAME): $(OBJ)
+```
+
+---
+
+# 10. Construção da biblioteca
+
+```makefile
+$(NAME): $(OBJ)
+```
+
+Substituindo:
+
+```makefile
+libft.a: srcs/ft_putchar.o ...
+```
+
+---
+
+# O QUE ISSO SIGNIFICA
+
+A biblioteca depende dos objetos.
+
+Então:
+
+## Antes de criar `libft.a`
+
+o make precisa garantir que todos os `.o` existam.
+
+---
+
+# RELAÇÃO COM A PRÓXIMA REGRA
+
+Se os `.o` não existem, o make procura:
+
+```makefile
+%.o: %.c
+```
+
+---
+
+# 11. Comando que cria a biblioteca
+
+```makefile
+	$(AR) $(NAME) $(OBJ)
+```
+
+IMPORTANTE:
+
+A indentação DEVE ser TAB.
+
+---
+
+## O que acontece aqui
+
+Substituindo variáveis:
+
+```bash
+ar rcs libft.a srcs/ft_putchar.o ...
+```
+
+---
+
+# RESULTADO
+
+Todos os `.o` são agrupados dentro de:
+
+```text
+libft.a
+```
+
+---
+
+# 12. Regra genérica de compilação
+
+```makefile
+%.o: %.c
+```
+
+# ESTA É A REGRA MAIS INTELIGENTE DO MAKEFILE
+
+---
+
+## O que `%` significa
+
+`%` é um curinga.
+
+---
+
+# O QUE ESSA REGRA DIZ
+
+> “qualquer `.o` pode ser criado a partir de um `.c` equivalente”
+
+---
+
+## Exemplo
+
+```text
+srcs/ft_putchar.o
+```
+
+vem de:
+
+```text
+srcs/ft_putchar.c
+```
+
+---
+
+# RELAÇÃO COM A LINHA SEGUINTE
+
+Agora o make sabe:
+
+* QUAL `.c` usar
+* COMO transformá-lo em `.o`
+
+---
+
+# 13. Comando de compilação
+
+```makefile
+	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+```
+
+---
+
+# Substituindo variáveis
+
+Fica:
+
+```bash
+gcc -Wall -Wextra -Werror -I includes -c srcs/ft_putchar.c -o srcs/ft_putchar.o
+```
+
+---
+
+# Significado das partes
+
+| parte       | significado                  |
+| ----------- | ---------------------------- |
+| gcc         | compilador                   |
+| -Wall...    | flags                        |
+| -I includes | procura headers              |
+| -c          | só compila                   |
+| $<          | primeiro arquivo dependência |
+| -o          | output                       |
+| $@          | nome do alvo                 |
+
+---
+
+# Variáveis automáticas
+
+## `$<`
+
+Significa:
+
+> “arquivo fonte”
+
+Exemplo:
+
+```text
+srcs/ft_putchar.c
+```
+
+---
+
+## `$@`
+
+Significa:
+
+> “arquivo alvo”
+
+Exemplo:
+
+```text
+srcs/ft_putchar.o
+```
+
+---
+
+# RELAÇÃO COM O RESTO DO MAKEFILE
+
+Essa regra é usada AUTOMATICAMENTE para gerar todos os `.o`.
+
+Sem ela, você teria que escrever:
+
+```makefile
+ft_putchar.o:
+	gcc ...
+```
+
+para cada arquivo.
+
+---
+
+# 14. Regra clean
+
+```makefile
+clean:
+	rm -f $(OBJ)
+```
+
+---
+
+# O QUE FAZ
+
+Remove os `.o`.
+
+---
+
+# Relação com `fclean`
+
+`fclean` depende de `clean`.
+
+---
+
+# 15. Regra fclean
+
+```makefile
+fclean: clean
+	rm -f $(NAME)
+```
+
+---
+
+# O QUE ISSO SIGNIFICA
+
+Antes de executar:
+
+```bash
+rm -f libft.a
+```
+
+o make executa:
+
+```makefile
+clean
+```
+
+---
+
+# Fluxo completo
+
+```text
+fclean
+ └── clean
+      └── remove .o
+ └── remove libft.a
+```
+
+---
+
+# 16. Regra re
+
+```makefile
+re: fclean all
+```
+
+# ESTA REGRA ENCADEIA TUDO
+
+---
+
+# O QUE SIGNIFICA
+
+Para executar `re`:
+
+1. executa `fclean`
+2. depois executa `all`
+
+---
+
+# Fluxo completo
+
+```text
+re
+ └── fclean
+      └── clean
+ └── all
+      └── libft.a
+```
+
+---
+
+# 17. PHONY
+
+```makefile
+.PHONY: all clean fclean re
+```
+
+# MUITO IMPORTANTE
+
+---
+
+## O problema que isso resolve
+
+Imagine que exista um arquivo chamado:
+
+```text
+clean
+```
+
+O make poderia achar que a regra já está “pronta”.
+
+---
+
+# `.PHONY` diz:
+
+> “essas regras NÃO são arquivos reais”
+
+Então elas sempre executam.
+
+---
+
+# RESUMO DA EXECUÇÃO COMPLETA
+
+Quando você roda:
+
+```bash
+make
+```
+
+o fluxo é:
+
+```text
+all
+ └── libft.a
+      └── arquivos .o
+           └── arquivos .c
+```
+
+---
+
+# ORDEM REAL DA CONSTRUÇÃO
+
+## 1.
+
+`make`
+
+↓
+
+## 2.
+
+Executa:
+
+```makefile
+all
+```
+
+↓
+
+## 3.
+
+`all` depende de:
+
+```makefile
+libft.a
+```
+
+↓
+
+## 4.
+
+`libft.a` depende de:
+
+```makefile
+$(OBJ)
+```
+
+↓
+
+## 5.
+
+Cada `.o` depende de `.c`
+
+↓
+
+## 6.
+
+Executa:
+
+```bash
+gcc -c ...
+```
+
+↓
+
+## 7.
+
+Gera `.o`
+
+↓
+
+## 8.
+
+Executa:
+
+```bash
+ar rcs libft.a ...
+```
+
+↓
+
+## 9.
+
+Biblioteca pronta.

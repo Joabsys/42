@@ -1,0 +1,12 @@
+Cenário Quatorze - Hierarquia
+Você está sendo avaliado por uma pessoa que está num projeto bem anterior ao seu,
+e nota que a pessoa avaliadora está tendo dificuldades em entender alguns conteitos e
+efetuar alguns dos testes que a régua está pedindo. Você:
+A) Diz que a essa altura do campeonato a pessoa já deveria saber como executar testes
+numa avaliação.
+B) Explica mesmo que brevemente o conceito por trás do teste e ajuda a avaliadora a
+executar os comandos, afinal é uma ótima oportunidade para que ela comece a se familiarizar com o que virá pela frente.
+C) Mostra como executar o teste sem explicar o motivo dele ser feito.
+D) Perde a paciência e pede para que a avaliação seja encerrada.
+
+R = B

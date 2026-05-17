@@ -1,0 +1,13 @@
+Cenário Quinze - A Comunicação Falhou
+Você está sendo avaliado e percebe que a avaliadora está fazendo muitos comentários
+sobre sua aparência, sobre aspectos pessoais seus, não levando em consideração o seu
+esforço e raciocínio para chegar na resolução apresentada. Você se sente desconfortável
+durante toda a avaliação. Como você poderia agir?
+A) Traz o foco de volta para o seu código e troca de conhecimento sobre o projeto.
+B) Demonstra o seu desconforto educadamente no feedback da intra e como você gostaria
+que avaliação tivesse ocorrido.
+C) Ainda sentindo que o desconforto é muito grande ou que foi algo muito grave para
+você, abre um relato no SafeSpace.
+D) Todas as anteriores.
+
+R = D

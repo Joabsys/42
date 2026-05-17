@@ -1,0 +1,7 @@
+Cenário Tres - Régua de Correção Inesperada.
+Você acabou de terminar uma avaliação e achou que correu tudo bem, então você vai na
+Intra para verificar o feedback da avaliadora e vê que ela falhou seu projeto e você não
+sabe se foi um erro ou se teve razões para fazer isso. Como você lidaria com essa situação?
+
+R= Para o caso da avaliadora não ter especificado no feedback o motivo da falha buscaria entender com a mesma o motivo da falha (técnica ou não) para buscar a correção para reenvio ou saber se foi algum erro no envio da avaliação.
+Tendo o retorno do motivo da falha, corrigiria para reenviar.

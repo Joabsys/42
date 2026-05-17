@@ -1,0 +1,3 @@
+Procuraria a pessoa tanto por mensagem e procuraria com base aonde a pessoa 
+estaria logado no campus, caso nao encontrasse eu esperaria por uns 30 minutos 
+para ver se teria alguma resposta, caso nao houvesse resposta alguma em 30 minutos eu marcaria como ausente.

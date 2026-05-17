@@ -1,0 +1,2 @@
+Tentaria avaliar de forma mais rapida sem perder a atenção para a régua, mas iria manter a avaliação até o fim,
+ é necessario que o avaliado esteja até o final para verificar se ele atingiu todas as réguas ou não.

@@ -1,0 +1,12 @@
+Cenário Oito - Percebeu Um Erro E Não Sabe Se É Erro
+Seu projeto está sendo avaliado e durante um teste você percebe que um item não está
+de acordo com o esperado pela régua. Sua avaliadora, no entanto, não percebe e acaba
+dando certo. Como você agiria?
+A) Deixa quieto e vida que segue. A pessoa avaliadora deveria estar mais atenta.
+B) Quando chega no final do avaliação, pede para a avaliadora dar a flag de Outstanding
+Project
+C) Avisa a avaliadora que há um erro no seu projeto e pede que todas as questões seguintes
+sejam marcadas como incorretas, ou que flag de Crash seja utilizada caso pertinente.
+D)Não sabe.
+
+R = C

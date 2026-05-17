@@ -1,0 +1,11 @@
+Cenário Doze - Ambiente de Avaliação dos Projetos
+Você está avaliando o projeto de um cadete que está trabalhando remoto. Por onde você
+testará o código?
+A) Pede para a avaliada fazer os testes na máquina dela.
+B) Se não for especificado que o projeto seja feito numa VM, você testa no SEU Workspaces.
+Se tiver algum problema técnico, pede para fazer a avaliação em outro momento ou pede
+para que a avaliada clone o repositório na sua frente e teste no Workspaces dela.
+C) Testa na sua máquina.
+D) Vê que é para fazer numa VM e desiste da avaliação.
+
+R = B

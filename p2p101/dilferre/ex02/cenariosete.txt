@@ -1,0 +1,12 @@
+Cenário Sete - Marcando Itens na Régua
+Você está avaliando um projeto com vários itens. No 4º item, nota que o programa não
+funciona como esperado e marca o "Não" na régua de correção. Como você agiria a partir
+daí?
+A) Continuaria com a avaliação para verificar como os outros itens se comportam e
+seguiria com a troca, marcando como corretos os próximos itens que funcionarem.
+B) Continuaria com a avaliação para verificar como os outros itens se comportam e
+seguiria com a troca, deixando como incorretos os próximos itens que funcionarem.
+C) Não prosseguiria com a avaliação.
+D) Uso a flag de trabalho incompleto.
+
+R = B
