@@ -1,0 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bzero.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026-05-18 12:42:43 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-18 12:42:43 by jesequie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
+}
+
+/*detalhe da função iniciar uma array antes de usa-lo para enviar lixo de memoria
+ou limpar estruturas antes de usar dados novos
+usa memset para preencher o array com 0.
+zerar a memoria alocada*
+/
