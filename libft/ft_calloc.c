@@ -17,13 +17,13 @@ void	*ft_calloc(size_t count, size_t size)
 	void	*p;
 	size_t	total;
 
+	if (size != 0 && count > ((size_t) -1) / size)
+		return (NULL);
 	total = count * size;
 	p = malloc (total);
-	if (size != 0 && count > SIZE_MAX / size)
-	return (NULL);
 	if (!p)
 		return (NULL);
-	ft_bzero(p, total);
+	ft_memset(p, 0, total);
 	return (p);
 }
 

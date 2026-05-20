@@ -14,11 +14,16 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
+	size_t i;
+	i = 0; 
 	unsigned char	*ptr;
 
 	ptr = (unsigned char *)b;
-	while (len-- > 0)
-		*(ptr++) = (unsigned char)c;
+	while (i < len)
+	{
+		ptr[i] = (unsigned char)c;
+		i++;
+	}
 	return (b);
 }
 /*preenche o array void *b, neste caso , com int c preenchendo a região com o valor especifico*/
