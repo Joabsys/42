@@ -25,3 +25,13 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (0);
 }
+# include <stdio.h>
+int main(void)
+{
+	char *name = "joaba";
+	char *nick = "joabb";
+size_t v = 10;
+int  result;
+ result = ft_memcmp(name,nick,v);
+printf("%d", result);
+}

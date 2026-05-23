@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memset.c                                           :+:      :+:    :+:   */
+/*   substr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:47:03 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:47:03 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-18 12:49:13 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-18 12:49:13 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned char	*ptr;
-	size_t i;
+	unsigned int	i;
+	char			*str;
+
 	i = 0;
-	ptr = (unsigned char *)b;
-	while (i < len)
+	if (start >= ft_strlen(s))
 	{
-		ptr[i] = (unsigned char)c;
+		str = ft_calloc(1, sizeof(char));
+		if (!str)
+			return (NULL);
+		return (str);
+	}
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	str = ft_calloc(sizeof(char), len + 1);
+	if (!str)
+		return (NULL);
+	while (s[start + i] && i < len)
+	{
+		str[i] = s[start + i];
 		i++;
 	}
-	return (b);
+	return (str);
 }
-

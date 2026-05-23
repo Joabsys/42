@@ -9,9 +9,9 @@
 /*   Updated: 2026-05-18 12:45:39 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# include <string.h>
 #include "libft.h"
-
+//copia cegamente os dados se se importar quais são pois isso o tipo void na implementação
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t	i;
@@ -25,4 +25,18 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (dst);
+}
+# include <stdio.h>
+int main()
+{
+	char p[] = "do bairro";
+	char q[] = "do bairro";
+	char *j = "maria";
+	char *l = "maria";
+	int i;
+	i=0;
+	ft_memcpy(p,l,6);
+	memcpy(q,j,6);
+		printf("%s\n",&p[i]);
+		printf("%s\n",&q[i]);
 }

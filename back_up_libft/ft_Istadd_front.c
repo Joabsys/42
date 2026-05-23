@@ -25,6 +25,12 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	new->next = *lst;
 	*lst = new;
 }
+
+int main ()
+{
+	int *ptr = 50;
+	int ** prt = 100;
+}
 /*13. Resumo mental simples
 
 A função faz 2 coisas:

@@ -1,42 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strchr.c                                           :+:      :+:    :+:   */
+/*   strrchr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:47:09 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:47:09 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-18 12:49:04 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-18 12:49:04 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include <string.h>
+# include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	char	find;
-	int		i;
+	char		*last;
+	char		find;
+	size_t		i;
 
-	find = (unsigned char)c;
-	i = 0;
-	while (s[i] != '\0')
+	last = (char *)s;
+	find = (char)c;
+	i = ft_strlen((char*)s);
+	while (i >= 0)
 	{
-		if (s[i] == find)
-			return ((char *)s + i);
-		i++;
+		if (last[i] == find)
+			return (&last[i]);
+		i--;
 	}
-	if (s[i] == find)
-		return ((char *)s + i);
 	return (NULL);
 }
-#include <stdio.h>
-int main(void)
+# include <stdio.h>
+ int main()
 {
 	char *name = "joab esequiel";
-	const char sub = 'q';
-	char *find;
-	find = ft_strchr(name,sub);
-
-	printf("%s",find);
-
+	const char nick = 'j';
+	char *r;
+	char *r2;
+	r = ft_strrchr(name,nick);
+	r2 = strrchr(name,nick);
+	printf("%s\n",r);
+	printf("%s",r2);
 }

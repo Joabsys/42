@@ -1,39 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlcat.c                                          :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:48:00 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:48:00 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-21 20:57:46 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-21 20:57:46 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
 {
-	size_t	i;
-	size_t	j;
-	size_t	dst_length;
-	size_t	src_length;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	ci;
+	unsigned int	cj;
 
-	src_length = ft_strlen(src);
-	dst_length = ft_strlen(dst);
-	j = dst_length;
 	i = 0;
-	if (dst_length < dstsize - 1 && dstsize > 0)
+	j = 0;
+	ci = 0;
+	cj = 0;
+	while (dest[ci] && ci < size)
+		ci++;
+	while (src[cj] != '\0')
+		cj++;
+	if (size <= ci)
+		return ((cj + size));
+	i = ci;
+	while (src[j] && i < size - 1)
 	{
-		while (src[i] && dst_length + i < dstsize - 1)
-		{
-			dst[j] = src[i];
-			j++;
-			i++;
-		}
-		dst[j] = '\0';
+		dest[i] = src[j];
+		i++;
+		j++;
 	}
-	if (dst_length >= dstsize)
-		dst_length = dstsize;
-	return (dst_length + src_length);
+	dest[i] = '\0';
+	return (ci + cj);
+}
+#include <stdio.h>
+int main()
+{
+	char name[20] = "joab ";
+	char nickname[] = "esequiel";
+	unsigned int i;
+	i = 0;
+
+	ft_strlcat(name, nickname, 14);
+
+	printf("%s",name);
 }

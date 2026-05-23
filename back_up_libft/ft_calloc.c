@@ -55,7 +55,7 @@ int main(void)
  	i = 0; 
  	while (i < 5) 
 	{ 
-		printf("v[%zu] = %d\n", i, v[i]); 
+		printf("v[%zu] = %d\n", i, v[i]);
 		i++; 
 	} 	
 	free(v);
