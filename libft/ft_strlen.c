@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	int		count;
 
@@ -23,11 +23,3 @@ int	ft_strlen(char *str)
 	}
 	return (count);
 }
-// int main()
-// {
-// 	char *nome = "joab";
-// 	int 	contador;
-// 	contador = ft_strlen(nome);
-// 	char converter = contador +'0';
-// 	write(1,&converter,1);
-// }

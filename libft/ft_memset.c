@@ -26,4 +26,4 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
-/*preenche o array void *b, neste caso , com int c preenchendo a região com o valor especifico*/
+

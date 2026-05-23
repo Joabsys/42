@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memchr.c                                           :+:      :+:    :+:   */
+/*   tolower.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:45:09 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:45:09 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-18 12:49:41 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-18 12:49:41 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+int	ft_tolower(int c)
 {
-	const unsigned char	*j;
-	size_t		i;
-
-	j = (unsigned char *)s;
-	i = 0;
-	while (i < n)
-	{
-		if (j[i] == (unsigned char)c)
-			return ((unsigned char *) &j[i]);
-		i++;
-	}
-	return (NULL);
+	if (c >= 65 && c <= 90)
+		c += 32;
+	return (c);
 }

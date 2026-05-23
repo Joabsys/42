@@ -1,55 +1,88 @@
-#ifndef LIBFT_H
-# define LIBFT_H
-# include <stdlib.h>
-# include <unistd.h>
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: adiaz-be <adiaz-be@student.42malaga.c      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/09/23 12:11:06 by adiaz-be          #+#    #+#              #
+#    Updated: 2022/09/23 12:11:46 by adiaz-be         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
+NAME = libft.a
 
-int		ft_atoi(const char *str);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t count, size_t size);
-int		ft_isalnum(int c);
-int		ft_isalpha(int c);
-int		ft_isascii(int c);
-int		ft_isdigit(int c);
-int		ft_isprint(int c);
-char	*ft_itoa(int n);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstlast(t_list *lst);
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-t_list	*ft_lstnew(void *content);
-int		ft_lstsize(t_list *lst);
-void	*ft_memchr(const void *s, int c, size_t n);
-int		ft_memcmp(const void *s1, const void *s2, size_t n);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
-void	*ft_memmove(void *dst, const void *src, size_t len);
-void	*ft_memset(void *b, int c, size_t len);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putstr_fd(char *s, int fd);
-char	**ft_split(char const *s, char c);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strdup(const char *s1);
-void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *s);
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
-char	*ft_strrchr(const char *s, int c);
-char	*ft_strtrim(char const *s1, char const *set);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_tolower(int c);
-int		ft_toupper(int c);
-#endif
+SRC	=	ft_atoi.c		\
+		ft_bzero.c		\
+		ft_calloc.c		\
+		ft_isalnum.c	\
+		ft_isalpha.c	\
+		ft_isascii.c	\
+		ft_isdigit.c	\
+		ft_isprint.c	\
+		ft_itoa.c		\
+		ft_memchr.c		\
+		ft_memcmp.c		\
+		ft_memcpy.c		\
+		ft_memmove.c	\
+		ft_memset.c		\
+		ft_putchar_fd.c	\
+		ft_putendl_fd.c	\
+		ft_putnbr_fd.c	\
+		ft_putstr_fd.c	\
+		ft_split.c		\
+		ft_strchr.c		\
+		ft_strdup.c		\
+		ft_striteri.c	\
+		ft_strjoin.c	\
+		ft_strlcat.c 	\
+		ft_strlcpy.c	\
+		ft_strlen.c 	\
+		ft_strmapi.c	\
+		ft_strncmp.c	\
+		ft_strnstr.c	\
+		ft_strrchr.c	\
+		ft_strtrim.c	\
+		ft_substr.c		\
+		ft_tolower.c	\
+		ft_toupper.c	\
+
+OBJS = $(SRC:.c=.o)
+
+BONUS =	ft_lstadd_back_bonus.c	\
+		ft_lstadd_front_bonus.c	\
+		ft_lstclear_bonus.c		\
+		ft_lstdelone_bonus.c	\
+		ft_lstiter_bonus.c		\
+		ft_lstlast_bonus.c		\
+		ft_lstmap_bonus.c		\
+		ft_lstnew_bonus.c		\
+		ft_lstsize_bonus.c		\
+
+BONUS_OBJS = $(BONUS:.c=.o)
+
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra
+RM = rm -rf
+AR = ar crs
+
+$(NAME): $(OBJS)
+	$(AR) $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+all: $(NAME)
+
+clean:
+	$(RM) $(OBJS) $(BONUS_OBJS)
+
+fclean:	clean
+	$(RM) $(NAME)		
+
+re:	fclean all
+
+bonus: $(OBJS) $(BONUS_OBJS)
+	$(AR) $(NAME) $(OBJS)  $(BONUS_OBJS)
+
+.PHONY:	all clean fclean re bonus
