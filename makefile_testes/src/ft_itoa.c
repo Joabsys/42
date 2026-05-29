@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 size_t	get_size(int n)
 {
@@ -41,15 +41,17 @@ char	*ft_itoa(int n)
 	str = (char *)malloc(size + 1);
 	if (!str)
 		return (NULL);
-	*(str + size--) = '\0';
+	str[size] = '\0';
+	size--;
 	while (num > 0)
 	{
-		*(str + size--) = num % 10 + '0';
+		str[size] = num % 10 + '0';
+		size--;
 		num /= 10;
 	}
 	if (size == 0 && str[1] == '\0')
-		*(str + size) = '0';
+		str[size] = '0';
 	else if (size == 0 && str[1])
-		*(str + size) = '-';
+		str[size] = '-';
 	return (str);
 }

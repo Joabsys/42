@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:43:14 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:43:14 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-28 18:54:20 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-28 18:54:20 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
