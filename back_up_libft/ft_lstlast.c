@@ -1,42 +1,37 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strchr.c                                           :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:47:09 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:47:09 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-29 20:35:47 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-29 20:35:47 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+t_list	*ft_lstlast(t_list *lst)
 {
-	char	find;
-	int		i;
-
-	find = (unsigned char)c;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == find)
-			return ((char *) &s[i]);
-		i++;
-	}
-	if(find == '\0')
-		return ((char *) &s[i]);
-	return (NULL);
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
 // #include <stdio.h>
 // int main(void)
 // {
-// 	char *name = "joab esequiel";
-// 	 char sub = 'r';
-// 	char *find;
-// 	find = ft_strchr(name,sub);
-
-// 	printf("%s",find);
-
+// 	t_list *list1;
+// 	t_list *list2;
+// 	t_list *temp;
+// 	t_list *lst;
+// 	list1 = ft_lstnew("joab");
+// 	list2 = ft_lstnew("esequiel");
+// 	list1->next = list2;
+// 	temp = list1;
+// 	lst = ft_lstlast(temp);
+// 	printf("%s",(char*)lst->content);
 // }

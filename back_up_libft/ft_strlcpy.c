@@ -1,36 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlcpy.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:48:27 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:48:27 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-24 18:44:04 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-24 18:44:04 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "libft.h"
 
-unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	unsigned int	srclen;
-	unsigned int	i;
+	size_t	j;
+	size_t	i;
+	size_t	k;
 
-	srclen = 0;
-	while (src[srclen])
-		srclen++;
+	j = 0;
+	k = 0;
+	while (src[j])
+		j++;
+	while(dst[k])
+		k++;
 	if (size == 0)
-		return (srclen);
+		return (j);
+
 	i = 0;
-	while (src[i] && i < (size - 1))
+	if(k > j)
 	{
-		dest[i] = src[i];
-		i++;
+		while (src[i] && i < (size - 1))
+			{
+				dst[i] = src[i];
+				i++;
+			}
+		dst[i] = '\0';
 	}
-	dest[i] = '\0';
-	return (srclen);
+	
+	else
+	{
+		while(dst[k])
+			dst[k] = k - 1;
+	}
+	return (j);
 }
+
 
 #include <unistd.h>
 #include <stdio.h>

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calloc.c                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:42:50 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:42:50 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-24 13:30:05 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-24 13:30:05 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*p;
 	size_t	total;
-
+//size != 0 garante  que a proxima conta não ocorra divisão por zero
+//(size_t)-1 reprenta o valor maximo de size_t possivel
+//count > ((size_t) -1) / size) garante que count(tamanho a ser alocado) 
+//não seja maior que o tamanho maximo de memoria disponivel.
 	if (size != 0 && count > ((size_t) -1) / size)
 		return (NULL);
 	total = count * size;

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_strdup(char *src)
+char	*ft_strdup(const char *src)
 {
 	int		i;
 	char	*copy;
@@ -22,6 +22,7 @@ char	*ft_strdup(char *src)
 	{
 		i++;
 	}
+	// armazena a quantidade de bytes em copy de acordo com o tamanho de src(sizeof(char) * i + 1)
 	copy = malloc (sizeof(char) * i + 1);
 	if (copy == NULL)
 		return (NULL);
@@ -34,3 +35,13 @@ char	*ft_strdup(char *src)
 	copy[i] = '\0';
 	return (copy);
 }
+// int main()
+// {
+// 	char *name = "jacob";
+// 	ft_strdup(name);
+// char *result;
+// result = ft_strdup(name);
+
+// write(1,result,5);
+
+// }

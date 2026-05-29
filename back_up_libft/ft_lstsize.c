@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isdigit.c                                          :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:44:51 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:44:51 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-29 20:34:36 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-29 20:34:36 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int c)
+int	ft_lstsize(t_list *lst)
 {
-	return (c >= 48 && c <= 57);
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }
-
-// int main()
+// #include <stdio.h>
+// int main(void)
 // {
-// 	int v;
-// 	v=0;
-// 	if(ft_isdigit(v))
-// 		printf("é um numero da tabela ascii");
-// 	else
-// 		printf("Não é numero da tabela ascii");
-
+// 	int i;
+// 	t_list *list1;
+// 	t_list *list2;
+// 	t_list *temp;
+// 	list1 = ft_lstnew("joab");
+// 	list2 = ft_lstnew("esequiel");
+// 	list1->next = list2;
+// 	temp = list1;
+// 	i=ft_lstsize(temp);
+// printf("%d",i);
+//free(list1);
+//free(list2);
 // }

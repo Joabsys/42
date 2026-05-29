@@ -32,8 +32,13 @@ void	*ft_memchr(const void *s, int c, size_t n)
  int main ()
  {
 	char *name = "joab";
- unsigned	char letter = 'b';
-	 unsigned char *result;
+ 	unsigned	char letter = 'b';
+	unsigned char *result;
+	char *name1 = "joab";
+ 	unsigned	char letter1 = 'b';
+	unsigned char *result1;
 	 result = (unsigned char *)ft_memchr(name,letter,(sizeof(letter))* 4);
 	printf("%s", result);
+	result1 = (unsigned char *)memchr(name1,letter1,(sizeof(letter1))* 4);
+	printf("%s", result1);
  }

@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atoi.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:42:29 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:42:29 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-29 20:14:34 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-29 20:14:34 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# include "libft.h"
 
-int	ft_atoi(const char *str)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	i;
-	int	sign;
-	int	num;
+	t_list	*aux;
 
-	i = 0;
-	sign = 1;
-	num = 0;
-	while (str[i] == ' ' || (str[i] >= 0 && str[i] <= 31))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (!new)
+		return ;
+	if (!*lst)
 	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
+		*lst = new;
+		return ;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		num = num * 10 + (str[i++] - '0');
-	return (num * sign);
+	aux = ft_lstlast(*lst);
+	aux->next = new;
 }
 #include <stdio.h>
-int main()
+int main(void)
 {
-	char *v = " -12";
-	printf("%d",ft_atoi(v));
+	t_list *list1;
+	t_list *list2;
+	t_list *temp;
+	t_list *lst = NULL;
+	list1 = ft_lstnew("joab");
+	ft_lstadd_back(&list1,lst);
+	list2 = ft_lstnew("esequiel");
+	ft_lstadd_back(&list2,lst);
+	temp = lst;
+	
+	printf("%s",(char*)temp->content);
 }

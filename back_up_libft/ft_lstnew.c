@@ -1,36 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isalnum.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesequie <jesequie@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-05-18 12:44:15 by jesequie          #+#    #+#             */
-/*   Updated: 2026-05-18 12:44:15 by jesequie         ###   ########.fr       */
+/*   Created: 2026-05-29 11:39:00 by jesequie          #+#    #+#             */
+/*   Updated: 2026-05-29 11:39:00 by jesequie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+t_list	*ft_lstnew(void *content)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
-}
+	t_list	*new;
 
+	new = (t_list *)malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}
+//#include <stdio.h>
 // int main()
 // {
-// 	int v;
-// 	v = 12;
-// 	char c = 'j';
+// 	t_list *name;
+// 	t_list *nick;
 
-// 	ft_isalnum(v);
-// 	ft_isalnum(c);
-// 	if(ft_isalnum(v))
-// 		write(1,"alfanumerico.",12);
-// 	else
-// 		write(1,"numero.",6);
-// 	if(ft_isalnum(c))
-// 		write(1,"alfanumerico.",12);
-// 	else
-// 		write(1,"numero.",6);
+// 	name = ft_lstnew("joab");
+// 	nick = ft_lstnew("esequiel");
+
+// 	name->next = nick;
+// 		t_list *temp;
+// 	temp = name;
+//  	while(temp)
+//  	{
+// 		printf("%s",(char*)temp->content);
+// 		temp = temp->next;
+//  	}
 // }

@@ -14,9 +14,20 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
+	int	i;
 	if (s != NULL)
 	{
-		ft_putstr_fd(s, fd);
-		ft_putchar_fd('\n', fd);
+		i = 0;
+		while(s[i])
+		{
+			write(fd,&s[i],1);
+			i++;
+		}
+		write(fd,"\n",1);
 	}
+}
+int main(void)
+{
+	char name[] = "joab";
+	ft_putendl_fd(name,1);
 }

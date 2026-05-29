@@ -17,15 +17,15 @@ int	ft_isascii(int c)
 	return (c >= 0 && c <= 127);
 }
 
-#include <stdio.h>
-int main()
-{
-	int v;
+// #include <stdio.h>
+// int main()
+// {
+// 	int v;
 
-	v = 127;
+// 	v = 127;
 	
-	if(ft_isascii(v))
-		printf("pertence a tabela ascii");
-	else
-		printf("Não pertence a tabela ascii");
-}
+// 	if(ft_isascii(v))
+// 		printf("pertence a tabela ascii");
+// 	else
+// 		printf("Não pertence a tabela ascii");
+// }

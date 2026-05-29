@@ -12,7 +12,8 @@
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)// recebi uma string e um valor inteiro que determinara a sai
+//padrão do array de char
 {	
 	int	i;
 
@@ -21,8 +22,16 @@ void	ft_putstr_fd(char *s, int fd)
 		i = 0;
 		while (s[i])
 		{
-			ft_putchar_fd(s[i], fd);
+			write(fd,&s[i],1);
+			// ft_putchar_fd(s[i], fd);
 			i++;
 		}
 	}
+}
+
+int main(void)
+{
+	char name[] = "joab";
+	ft_putstr_fd(name,1);
+
 }

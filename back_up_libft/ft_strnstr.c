@@ -43,7 +43,7 @@ char	*ft_strnstr(const char *j, const char *k, size_t l)
  int main()
 {
 	size_t v = 4;
-	const char *name = "de";
+	const char *name = "";
 	const char *nick = "pote de feijao amarelo";
 	const char *result; 
 
